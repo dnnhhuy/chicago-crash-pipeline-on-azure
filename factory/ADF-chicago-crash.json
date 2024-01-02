@@ -1,0 +1,9 @@
+{
+	"name": "ADF-chicago-crash",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "440236c1-bee6-474d-801c-70b4eaede560",
+		"tenantId": "40127cd4-45f3-49a3-b05d-315a43a9f033"
+	}
+}
