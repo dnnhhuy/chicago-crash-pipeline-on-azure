@@ -1,0 +1,7 @@
+{
+	"name": "crawldata",
+	"properties": {
+		"description": "Crawl Crashes Data from API",
+		"annotations": []
+	}
+}
