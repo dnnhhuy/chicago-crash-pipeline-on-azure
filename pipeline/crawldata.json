@@ -16,7 +16,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"notebookPath": "/Shared/Crawl Data from API"
+					"notebookPath": "/Users/1751071@student.hcmus.edu.vn/Crawl Data from API"
 				},
 				"linkedServiceName": {
 					"referenceName": "AzureDatabricks1",
