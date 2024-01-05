@@ -54,12 +54,93 @@
 				"name": "ForEach1",
 				"type": "ForEach",
 				"dependsOn": [],
-				"userProperties": []
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.inputParameter",
+						"type": "Expression"
+					},
+					"isSequential": true
+				}
 			}
 		],
 		"parameters": {
 			"inputParameter": {
-				"type": "string"
+				"type": "array",
+				"defaultValue": [
+					{
+						"sourceFolder": "dim_time",
+						"destinationTable": "DimTime"
+					},
+					{
+						"sourceFolder": "dim_date",
+						"destinationTable": "DimDate"
+					},
+					{
+						"sourceFolder": "dim_location",
+						"destinationTable": "DimLocation"
+					},
+					{
+						"sourceFolder": "road_cond_mini_dim",
+						"destinationTable": "RoadCondMiniDim"
+					},
+					{
+						"sourceFolder": "control_device_cond_mini_dim",
+						"destinationTable": "ControlDeviceCondMiniDim"
+					},
+					{
+						"sourceFolder": "dim_road_cond",
+						"destinationTable": "DimRoadCond"
+					},
+					{
+						"sourceFolder": "dim_control_device_cond",
+						"destinationTable": "DimControlDeviceCond"
+					},
+					{
+						"sourceFolder": "bridge_vehicle_group",
+						"destinationTable": "BridgeVehicleGroup"
+					},
+					{
+						"sourceFolder": "dim_vehicle",
+						"destinationTable": "DimVehicle"
+					},
+					{
+						"sourceFolder": "dim_collision",
+						"destinationTable": "DimCollision"
+					},
+					{
+						"sourceFolder": "dim_report_type",
+						"destinationTable": "DimReportType"
+					},
+					{
+						"sourceFolder": "bridge_person_group",
+						"destinationTable": "BridgePersonGroup"
+					},
+					{
+						"sourceFolder": "dim_person",
+						"destinationTable": "DimPerson"
+					},
+					{
+						"sourceFolder": "dim_weather",
+						"destinationTable": "DimWeather"
+					},
+					{
+						"sourceFolder": "dim_junk",
+						"destinationTable": "DimJunk"
+					},
+					{
+						"sourceFolder": "dim_cause",
+						"destinationTable": "DimCause"
+					},
+					{
+						"sourceFolder": "dim_crash_type",
+						"destinationTable": "DimCrashType"
+					},
+					{
+						"sourceFolder": "fact_crash",
+						"destinationTable": "FactCrash"
+					}
+				]
 			}
 		},
 		"annotations": []
