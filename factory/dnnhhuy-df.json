@@ -1,0 +1,9 @@
+{
+	"name": "dnnhhuy-df",
+	"location": "southeastasia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "f659ab2c-cd52-4b47-9287-f939e64e7067",
+		"tenantId": "40127cd4-45f3-49a3-b05d-315a43a9f033"
+	}
+}
