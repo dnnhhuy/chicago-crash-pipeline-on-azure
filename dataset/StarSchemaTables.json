@@ -1,0 +1,30 @@
+{
+	"name": "StarSchemaTables",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "@item().sourceFolder",
+				"folderPath": "serving",
+				"fileSystem": "chicago-crash"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "person_group_key",
+				"type": "UTF8"
+			},
+			{
+				"name": "person_id",
+				"type": "UTF8"
+			}
+		]
+	}
+}
