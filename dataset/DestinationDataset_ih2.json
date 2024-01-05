@@ -1,0 +1,11 @@
+{
+	"name": "DestinationDataset_ih2",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable"
+	}
+}
