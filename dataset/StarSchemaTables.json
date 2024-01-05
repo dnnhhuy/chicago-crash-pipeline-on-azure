@@ -19,7 +19,7 @@
 					"value": "@dataset().paramSource",
 					"type": "Expression"
 				},
-				"folderPath": "serving",
+				"folderPath": "serving/@dataset().paramSource",
 				"fileSystem": "chicago-crash"
 			},
 			"compressionCodec": "snappy"
