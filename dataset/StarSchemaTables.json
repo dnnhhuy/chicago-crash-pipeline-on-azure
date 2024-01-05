@@ -15,11 +15,10 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": {
+				"folderPath": {
 					"value": "@dataset().paramSource",
 					"type": "Expression"
 				},
-				"folderPath": "serving/@dataset.paramSource",
 				"fileSystem": "chicago-crash"
 			},
 			"compressionCodec": "snappy"
