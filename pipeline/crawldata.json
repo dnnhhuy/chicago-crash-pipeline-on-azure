@@ -93,12 +93,45 @@
 										"type": "ParquetReadSettings"
 									}
 								},
-								"enableStaging": false
+								"sink": {
+									"type": "AzureSqlSink",
+									"writeBehavior": "insert",
+									"sqlWriterUseTableLock": false,
+									"tableOption": "autoCreate",
+									"disableMetricsCollection": false
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
 							},
 							"inputs": [
 								{
 									"referenceName": "StarSchemaTables",
-									"type": "DatasetReference"
+									"type": "DatasetReference",
+									"parameters": {
+										"paramSource": {
+											"value": "@item().sourceFolder",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "AzureSqlTable1",
+									"type": "DatasetReference",
+									"parameters": {
+										"paramDestination": {
+											"value": "@item().destinationTable",
+											"type": "Expression"
+										}
+									}
 								}
 							]
 						}

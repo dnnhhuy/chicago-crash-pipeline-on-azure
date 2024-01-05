@@ -5,12 +5,20 @@
 			"referenceName": "AzureDataLakeStorage1",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"paramSource": {
+				"type": "string"
+			}
+		},
 		"annotations": [],
 		"type": "Parquet",
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "@item().sourceFolder",
+				"fileName": {
+					"value": "@dataset().paramSource",
+					"type": "Expression"
+				},
 				"folderPath": "serving",
 				"fileSystem": "chicago-crash"
 			},
