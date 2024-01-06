@@ -70,8 +70,8 @@
 					"isSequential": true,
 					"activities": [
 						{
-							"name": "CopyFromBlobToSQL",
-							"type": "Copy",
+							"name": "Data flow1",
+							"type": "ExecuteDataFlow",
 							"dependsOn": [],
 							"policy": {
 								"timeout": "0.12:00:00",
@@ -82,58 +82,26 @@
 							},
 							"userProperties": [],
 							"typeProperties": {
-								"source": {
-									"type": "ParquetSource",
-									"storeSettings": {
-										"type": "AzureBlobFSReadSettings",
-										"recursive": true,
-										"enablePartitionDiscovery": false
-									},
-									"formatSettings": {
-										"type": "ParquetReadSettings"
-									}
-								},
-								"sink": {
-									"type": "AzureSqlSink",
-									"writeBehavior": "insert",
-									"sqlWriterUseTableLock": false,
-									"tableOption": "autoCreate",
-									"disableMetricsCollection": false
-								},
-								"enableStaging": false,
-								"translator": {
-									"type": "TabularTranslator",
-									"typeConversion": true,
-									"typeConversionSettings": {
-										"allowDataTruncation": true,
-										"treatBooleanAsNumber": false
-									}
-								}
-							},
-							"inputs": [
-								{
-									"referenceName": "StarSchemaTables",
-									"type": "DatasetReference",
+								"dataflow": {
+									"referenceName": "dataflow1",
+									"type": "DataFlowReference",
 									"parameters": {
-										"paramSource": {
-											"value": "@item().sourceFolder",
+										"DeltaTableFolder": {
+											"value": "'@{item().sourceFolder}'",
+											"type": "Expression"
+										},
+										"SQLTableName": {
+											"value": "'@{item().destinationTable}'",
 											"type": "Expression"
 										}
 									}
-								}
-							],
-							"outputs": [
-								{
-									"referenceName": "AzureSqlTable1",
-									"type": "DatasetReference",
-									"parameters": {
-										"paramDestination": {
-											"value": "@item().destinationTable",
-											"type": "Expression"
-										}
-									}
-								}
-							]
+								},
+								"compute": {
+									"coreCount": 8,
+									"computeType": "General"
+								},
+								"traceLevel": "Fine"
+							}
 						}
 					]
 				}
