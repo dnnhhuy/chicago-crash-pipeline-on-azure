@@ -83,7 +83,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"dataflow": {
-									"referenceName": "dataflow1",
+									"referenceName": "CopyFromDeltaToSQL",
 									"type": "DataFlowReference",
 									"parameters": {
 										"DeltaTableFolder": {
