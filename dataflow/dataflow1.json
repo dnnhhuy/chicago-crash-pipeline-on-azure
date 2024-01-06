@@ -9,7 +9,7 @@
 						"referenceName": "AzureDataLakeStorage1",
 						"type": "LinkedServiceReference"
 					},
-					"name": "source1"
+					"name": "DeltaTable"
 				}
 			],
 			"sinks": [
@@ -18,18 +18,22 @@
 						"referenceName": "AzureSqlDatabase1",
 						"type": "LinkedServiceReference"
 					},
-					"name": "sink1"
+					"name": "SQLDatabases"
 				}
 			],
 			"transformations": [],
 			"scriptLines": [
+				"parameters{",
+				"     DeltaTableFolder as string,",
+				"     SQLTableName as string",
+				"}",
 				"source(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false,",
 				"     format: 'delta',",
 				"     fileSystem: 'chicago-crash',",
-				"     folderPath: 'serving/dim_time') ~> source1",
-				"source1 sink(allowSchemaDrift: true,",
+				"     folderPath: ($DeltaTableFolder)) ~> DeltaTable",
+				"DeltaTable sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     format: 'table',",
 				"     store: 'sqlserver',",
@@ -42,7 +46,7 @@
 				"     recreate: true,",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
-				"     errorHandlingOption: 'stopOnFirstError') ~> sink1"
+				"     errorHandlingOption: 'stopOnFirstError') ~> SQLDatabases"
 			]
 		}
 	}
