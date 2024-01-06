@@ -90,6 +90,14 @@
 											"value": "'@{item().sourceFolder}'",
 											"type": "Expression"
 										}
+									},
+									"datasetParameters": {
+										"SQLDatabases": {
+											"paramDestination": {
+												"value": "@item().destinationTable",
+												"type": "Expression"
+											}
+										}
 									}
 								},
 								"compute": {
