@@ -1,9 +1,9 @@
 {
 	"name": "dnnhhuy-df",
-	"location": "southeastasia",
+	"location": "eastus",
 	"identity": {
 		"type": "SystemAssigned",
-		"principalId": "721a5a2c-4f69-44f4-a5f5-4b1e4719a08c",
+		"principalId": "b9d91f59-2428-4d0e-a4b1-af4e92d5a4cc",
 		"tenantId": "5515b8a0-115e-4e4e-b3de-46d4aeea2a7d"
 	}
 }
