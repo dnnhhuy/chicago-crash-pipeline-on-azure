@@ -15,7 +15,7 @@ This project aims to process data crawled from Soda API related to crashes happe
 
 The project is built using multiple services on Azure Cloud Provider following these steps:
 * Data was cleansed (handling missing values, inconsistent value, inconsistent data type, etc.) and ingested to Data Lakehouse managed by Delta lake hosted on ADLS Gen2.
-* Data is loaded incrementally using Watermarking technique to keep track of latest timestamp of data table. 
+* Data is loaded incrementally using Watermarking technique to keep track of latest timestamp of data table and partitioned by year/month/day.
 * Then cleansed data will be transformed to star schema by using Pyspark in Azure DataBricks.
 * Transformed data will be stored in Data Warehouse hosted by SQL Database for analysis.
 * PowerBI was used for data visualization and data analysis. 
