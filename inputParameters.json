@@ -1,0 +1,74 @@
+[
+    {
+        "sourceFolder": "serving/dim_time",
+        "destinationTable": "DimTime"
+    },
+    {
+        "sourceFolder": "serving/dim_date",
+        "destinationTable": "DimDate"
+    },
+    {
+        "sourceFolder": "serving/dim_location",
+        "destinationTable": "DimLocation"
+    },
+    {
+        "sourceFolder": "serving/road_cond_mini_dim",
+        "destinationTable": "RoadCondMiniDim"
+    },
+    {
+        "sourceFolder": "serving/control_device_cond_mini_dim",
+        "destinationTable": "ControlDeviceCondMiniDim"
+    },
+    {
+        "sourceFolder": "serving/dim_road_cond",
+        "destinationTable": "DimRoadCond"
+    },
+    {
+        "sourceFolder": "serving/dim_control_device_cond",
+        "destinationTable": "DimControlDeviceCond"
+    },
+    {
+        "sourceFolder": "serving/bridge_vehicle_group",
+        "destinationTable": "BridgeVehicleGroup"
+    },
+    {
+        "sourceFolder": "serving/dim_vehicle",
+        "destinationTable": "DimVehicle"
+    },
+    {
+        "sourceFolder": "serving/dim_collision",
+        "destinationTable": "DimCollision"
+    },
+    {
+        "sourceFolder": "serving/dim_report_type",
+        "destinationTable": "DimReportType"
+    },
+    {
+        "sourceFolder": "serving/bridge_person_group",
+        "destinationTable": "BridgePersonGroup"
+    },
+    {
+        "sourceFolder": "serving/dim_person",
+        "destinationTable": "DimPerson"
+    },
+    {
+        "sourceFolder": "serving/dim_weather",
+        "destinationTable": "DimWeather"
+    },
+    {
+        "sourceFolder": "serving/dim_junk",
+        "destinationTable": "DimJunk"
+    },
+    {
+        "sourceFolder": "serving/dim_cause",
+        "destinationTable": "DimCause"
+    },
+    {
+        "sourceFolder": "serving/dim_crash_type",
+        "destinationTable": "DimCrashType"
+    },
+    {
+        "sourceFolder": "serving/fact_crash",
+        "destinationTable": "FactCrash"
+    }
+]

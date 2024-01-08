@@ -1,0 +1,9 @@
+{
+	"name": "dnnhhuy-df",
+	"location": "japanwest",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "a3497a0f-5159-4ad9-a8e8-e5fc45c434ff",
+		"tenantId": "5515b8a0-115e-4e4e-b3de-46d4aeea2a7d"
+	}
+}
