@@ -21,7 +21,11 @@
 					"name": "SQLDatabases"
 				}
 			],
-			"transformations": [],
+			"transformations": [
+				{
+					"name": "AlterRow1"
+				}
+			],
 			"scriptLines": [
 				"parameters{",
 				"     DeltaTableFolder as string",
@@ -32,13 +36,13 @@
 				"     format: 'delta',",
 				"     fileSystem: 'chicago-crash',",
 				"     folderPath: ($DeltaTableFolder)) ~> DeltaTable",
-				"DeltaTable sink(allowSchemaDrift: true,",
+				"DeltaTable alterRow() ~> AlterRow1",
+				"AlterRow1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     deletable:false,",
 				"     insertable:true,",
 				"     updateable:false,",
-				"     upsertable:false,",
-				"     recreate:true,",
+				"     upsertable:true,",
 				"     format: 'table',",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",

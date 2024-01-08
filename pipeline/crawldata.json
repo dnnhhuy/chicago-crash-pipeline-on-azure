@@ -16,7 +16,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"notebookPath": "/Users/1751071@student.hcmus.edu.vn/Crawl Data from API"
+					"notebookPath": "/Users/eddie_huy@yahoo.com.vn/Crawl Data from API"
 				},
 				"linkedServiceName": {
 					"referenceName": "AzureDatabricks1",
@@ -43,7 +43,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"notebookPath": "/Users/1751071@student.hcmus.edu.vn/Transform data"
+					"notebookPath": "/Users/eddie_huy@yahoo.com.vn/Transform data"
 				},
 				"linkedServiceName": {
 					"referenceName": "AzureDatabricks1",
