@@ -39,7 +39,7 @@ This data model can be used to answer against these questions:
 * Damage distribution of crashes?* What is the most collision type in crashes?
 * etc.
 
-## Mantain Security
+## Security
 
 Some security practices applied to this project:
 * All services communicate to each other using Virtual Network (VNet) and private endpoints instead of using public access network.
