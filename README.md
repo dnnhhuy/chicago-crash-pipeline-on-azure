@@ -5,6 +5,7 @@ This project aims to process data crawled from Soda API related to crashes happe
 
 ## **Tools & Technology**
 - Azure DataBricks
+- Apache Spark (Pyspark)
 - Azure Datalake Storage Gen2
 - Azure Data Factory
 - Azure Sql Database
