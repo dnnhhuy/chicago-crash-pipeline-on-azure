@@ -1,0 +1,36 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "dnnhhuy-df"
+		},
+		"AzureDataLakeStorage1_accountKey": {
+			"value": ""
+		},
+		"AzureDatabricks1_accessToken": {
+			"value": ""
+		},
+		"AzureSqlDatabase1_connectionString": {
+			"value": ""
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"value": "https://dnnhhuydatalake.dfs.core.windows.net/"
+		},
+		"AzureDatabricks1_properties_typeProperties_existingClusterId": {
+			"value": "0107-200529-ozqu7cim"
+		},
+		"AzureDataLakeStorage410_properties_privateLinkResourceId": {
+			"value": "/subscriptions/25d2c895-0389-471f-b45f-cb7495bb8bf1/resourceGroups/chicago-crash-project/providers/Microsoft.Storage/storageAccounts/dnnhhuydatalake"
+		},
+		"AzureDataLakeStorage410_properties_groupId": {
+			"value": "dfs"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}

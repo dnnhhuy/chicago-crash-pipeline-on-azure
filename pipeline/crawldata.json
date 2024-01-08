@@ -1,0 +1,195 @@
+{
+	"name": "crawldata",
+	"properties": {
+		"description": "Crawl Crashes Data from API",
+		"activities": [
+			{
+				"name": "Crawl Data",
+				"type": "DatabricksNotebook",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/eddie_huy@yahoo.com.vn/Crawl Data from API"
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureDatabricks1",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Transfrom Data",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "Crawl Data",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/eddie_huy@yahoo.com.vn/Transform data"
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureDatabricks1",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "ForEach1",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Transfrom Data",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.inputParameter",
+						"type": "Expression"
+					},
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "Data flow1",
+							"type": "ExecuteDataFlow",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"dataflow": {
+									"referenceName": "CopyFromDeltaToSQL",
+									"type": "DataFlowReference",
+									"parameters": {
+										"DeltaTableFolder": {
+											"value": "'@{item().sourceFolder}'",
+											"type": "Expression"
+										}
+									},
+									"datasetParameters": {
+										"SQLDatabases": {
+											"paramDestination": {
+												"value": "@item().destinationTable",
+												"type": "Expression"
+											}
+										}
+									}
+								},
+								"compute": {
+									"coreCount": 8,
+									"computeType": "General"
+								},
+								"traceLevel": "Fine"
+							}
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"inputParameter": {
+				"type": "array",
+				"defaultValue": [
+					{
+						"sourceFolder": "serving/dim_time",
+						"destinationTable": "DimTime"
+					},
+					{
+						"sourceFolder": "serving/dim_date",
+						"destinationTable": "DimDate"
+					},
+					{
+						"sourceFolder": "serving/dim_location",
+						"destinationTable": "DimLocation"
+					},
+					{
+						"sourceFolder": "serving/road_cond_mini_dim",
+						"destinationTable": "RoadCondMiniDim"
+					},
+					{
+						"sourceFolder": "serving/control_device_cond_mini_dim",
+						"destinationTable": "ControlDeviceCondMiniDim"
+					},
+					{
+						"sourceFolder": "serving/dim_road_cond",
+						"destinationTable": "DimRoadCond"
+					},
+					{
+						"sourceFolder": "serving/dim_control_device_cond",
+						"destinationTable": "DimControlDeviceCond"
+					},
+					{
+						"sourceFolder": "serving/bridge_vehicle_group",
+						"destinationTable": "BridgeVehicleGroup"
+					},
+					{
+						"sourceFolder": "serving/dim_vehicle",
+						"destinationTable": "DimVehicle"
+					},
+					{
+						"sourceFolder": "serving/dim_collision",
+						"destinationTable": "DimCollision"
+					},
+					{
+						"sourceFolder": "serving/dim_report_type",
+						"destinationTable": "DimReportType"
+					},
+					{
+						"sourceFolder": "serving/bridge_person_group",
+						"destinationTable": "BridgePersonGroup"
+					},
+					{
+						"sourceFolder": "serving/dim_person",
+						"destinationTable": "DimPerson"
+					},
+					{
+						"sourceFolder": "serving/dim_weather",
+						"destinationTable": "DimWeather"
+					},
+					{
+						"sourceFolder": "serving/dim_junk",
+						"destinationTable": "DimJunk"
+					},
+					{
+						"sourceFolder": "serving/dim_cause",
+						"destinationTable": "DimCause"
+					},
+					{
+						"sourceFolder": "serving/dim_crash_type",
+						"destinationTable": "DimCrashType"
+					},
+					{
+						"sourceFolder": "serving/fact_crash",
+						"destinationTable": "FactCrash"
+					}
+				]
+			}
+		},
+		"annotations": []
+	}
+}

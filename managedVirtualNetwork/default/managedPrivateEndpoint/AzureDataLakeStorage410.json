@@ -1,0 +1,7 @@
+{
+	"name": "AzureDataLakeStorage410",
+	"properties": {
+		"privateLinkResourceId": "/subscriptions/25d2c895-0389-471f-b45f-cb7495bb8bf1/resourceGroups/chicago-crash-project/providers/Microsoft.Storage/storageAccounts/dnnhhuydatalake",
+		"groupId": "dfs"
+	}
+}
