@@ -21,11 +21,19 @@
 		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"type": "string",
-			"defaultValue": "https://dnnhhuystorage.dfs.core.windows.net/"
+			"defaultValue": "https://dnnhhuydatalake.dfs.core.windows.net/"
 		},
 		"AzureDatabricks1_properties_typeProperties_existingClusterId": {
 			"type": "string",
-			"defaultValue": "0103-045816-4vym9vrx"
+			"defaultValue": "0107-200529-ozqu7cim"
+		},
+		"AzureDataLakeStorage410_properties_privateLinkResourceId": {
+			"type": "string",
+			"defaultValue": "/subscriptions/25d2c895-0389-471f-b45f-cb7495bb8bf1/resourceGroups/chicago-crash-project/providers/Microsoft.Storage/storageAccounts/dnnhhuydatalake"
+		},
+		"AzureDataLakeStorage410_properties_groupId": {
+			"type": "string",
+			"defaultValue": "dfs"
 		}
 	},
 	"variables": {
@@ -52,7 +60,7 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"notebookPath": "/Users/1751071@student.hcmus.edu.vn/Crawl Data from API"
+							"notebookPath": "/Users/eddie_huy@yahoo.com.vn/Crawl Data from API"
 						},
 						"linkedServiceName": {
 							"referenceName": "AzureDatabricks1",
@@ -79,7 +87,7 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"notebookPath": "/Users/1751071@student.hcmus.edu.vn/Transform data"
+							"notebookPath": "/Users/eddie_huy@yahoo.com.vn/Transform data"
 						},
 						"linkedServiceName": {
 							"referenceName": "AzureDatabricks1",
@@ -106,8 +114,8 @@
 							"isSequential": true,
 							"activities": [
 								{
-									"name": "CopyFromBlobToSQL",
-									"type": "Copy",
+									"name": "Data flow1",
+									"type": "ExecuteDataFlow",
 									"dependsOn": [],
 									"policy": {
 										"timeout": "0.12:00:00",
@@ -118,58 +126,32 @@
 									},
 									"userProperties": [],
 									"typeProperties": {
-										"source": {
-											"type": "ParquetSource",
-											"storeSettings": {
-												"type": "AzureBlobFSReadSettings",
-												"recursive": true,
-												"enablePartitionDiscovery": false
+										"dataflow": {
+											"referenceName": "CopyFromDeltaToSQL",
+											"type": "DataFlowReference",
+											"parameters": {
+												"DeltaTableFolder": {
+													"value": "'@{item().sourceFolder}'",
+													"type": "Expression"
+												}
 											},
-											"formatSettings": {
-												"type": "ParquetReadSettings"
-											}
-										},
-										"sink": {
-											"type": "AzureSqlSink",
-											"writeBehavior": "insert",
-											"sqlWriterUseTableLock": false,
-											"tableOption": "autoCreate",
-											"disableMetricsCollection": false
-										},
-										"enableStaging": false,
-										"translator": {
-											"type": "TabularTranslator",
-											"typeConversion": true,
-											"typeConversionSettings": {
-												"allowDataTruncation": true,
-												"treatBooleanAsNumber": false
-											}
-										}
-									},
-									"inputs": [
-										{
-											"referenceName": "StarSchemaTables",
-											"type": "DatasetReference",
-											"parameters": {
-												"paramSource": {
-													"value": "@item().sourceFolder",
-													"type": "Expression"
+											"datasetParameters": {
+												"DeltaTable": {},
+												"SQLDatabases": {
+													"paramDestination": {
+														"value": "@item().destinationTable",
+														"type": "Expression"
+													}
 												}
 											}
-										}
-									],
-									"outputs": [
-										{
-											"referenceName": "AzureSqlTable1",
-											"type": "DatasetReference",
-											"parameters": {
-												"paramDestination": {
-													"value": "@item().destinationTable",
-													"type": "Expression"
-												}
-											}
-										}
-									]
+										},
+										"staging": {},
+										"compute": {
+											"coreCount": 8,
+											"computeType": "General"
+										},
+										"traceLevel": "Fine"
+									}
 								}
 							]
 						}
@@ -183,75 +165,75 @@
 						"type": "array",
 						"defaultValue": [
 							{
-								"sourceFolder": "dim_time",
+								"sourceFolder": "serving/dim_time",
 								"destinationTable": "DimTime"
 							},
 							{
-								"sourceFolder": "dim_date",
+								"sourceFolder": "serving/dim_date",
 								"destinationTable": "DimDate"
 							},
 							{
-								"sourceFolder": "dim_location",
+								"sourceFolder": "serving/dim_location",
 								"destinationTable": "DimLocation"
 							},
 							{
-								"sourceFolder": "road_cond_mini_dim",
+								"sourceFolder": "serving/road_cond_mini_dim",
 								"destinationTable": "RoadCondMiniDim"
 							},
 							{
-								"sourceFolder": "control_device_cond_mini_dim",
+								"sourceFolder": "serving/control_device_cond_mini_dim",
 								"destinationTable": "ControlDeviceCondMiniDim"
 							},
 							{
-								"sourceFolder": "dim_road_cond",
+								"sourceFolder": "serving/dim_road_cond",
 								"destinationTable": "DimRoadCond"
 							},
 							{
-								"sourceFolder": "dim_control_device_cond",
+								"sourceFolder": "serving/dim_control_device_cond",
 								"destinationTable": "DimControlDeviceCond"
 							},
 							{
-								"sourceFolder": "bridge_vehicle_group",
+								"sourceFolder": "serving/bridge_vehicle_group",
 								"destinationTable": "BridgeVehicleGroup"
 							},
 							{
-								"sourceFolder": "dim_vehicle",
+								"sourceFolder": "serving/dim_vehicle",
 								"destinationTable": "DimVehicle"
 							},
 							{
-								"sourceFolder": "dim_collision",
+								"sourceFolder": "serving/dim_collision",
 								"destinationTable": "DimCollision"
 							},
 							{
-								"sourceFolder": "dim_report_type",
+								"sourceFolder": "serving/dim_report_type",
 								"destinationTable": "DimReportType"
 							},
 							{
-								"sourceFolder": "bridge_person_group",
+								"sourceFolder": "serving/bridge_person_group",
 								"destinationTable": "BridgePersonGroup"
 							},
 							{
-								"sourceFolder": "dim_person",
+								"sourceFolder": "serving/dim_person",
 								"destinationTable": "DimPerson"
 							},
 							{
-								"sourceFolder": "dim_weather",
+								"sourceFolder": "serving/dim_weather",
 								"destinationTable": "DimWeather"
 							},
 							{
-								"sourceFolder": "dim_junk",
+								"sourceFolder": "serving/dim_junk",
 								"destinationTable": "DimJunk"
 							},
 							{
-								"sourceFolder": "dim_cause",
+								"sourceFolder": "serving/dim_cause",
 								"destinationTable": "DimCause"
 							},
 							{
-								"sourceFolder": "dim_crash_type",
+								"sourceFolder": "serving/dim_crash_type",
 								"destinationTable": "DimCrashType"
 							},
 							{
-								"sourceFolder": "fact_crash",
+								"sourceFolder": "serving/fact_crash",
 								"destinationTable": "FactCrash"
 							}
 						]
@@ -261,51 +243,37 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/AzureDatabricks1')]",
-				"[concat(variables('factoryId'), '/datasets/StarSchemaTables')]",
-				"[concat(variables('factoryId'), '/datasets/AzureSqlTable1')]"
+				"[concat(variables('factoryId'), '/dataflows/CopyFromDeltaToSQL')]",
+				"[concat(variables('factoryId'), '/integrationRuntimes/AutoResolveIntegrationRuntime')]"
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/StarSchemaTables')]",
+			"name": "[concat(parameters('factoryName'), '/AzureSqlTable1')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "AzureDataLakeStorage1",
+					"referenceName": "AzureSqlDatabase1",
 					"type": "LinkedServiceReference"
 				},
 				"parameters": {
-					"paramSource": {
+					"paramDestination": {
 						"type": "string"
 					}
 				},
 				"annotations": [],
-				"type": "Parquet",
+				"type": "AzureSqlTable",
+				"schema": [],
 				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": {
-							"value": "@dataset().paramSource",
-							"type": "Expression"
-						},
-						"folderPath": "serving",
-						"fileSystem": "chicago-crash"
-					},
-					"compressionCodec": "snappy"
-				},
-				"schema": [
-					{
-						"name": "person_group_key",
-						"type": "UTF8"
-					},
-					{
-						"name": "person_id",
-						"type": "UTF8"
+					"schema": "dbo",
+					"table": {
+						"value": "@dataset().paramDestination",
+						"type": "Expression"
 					}
-				]
+				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase1')]"
 			]
 		},
 		{
@@ -321,9 +289,15 @@
 						"type": "SecureString",
 						"value": "[parameters('AzureDataLakeStorage1_accountKey')]"
 					}
+				},
+				"connectVia": {
+					"referenceName": "AutoResolveIntegrationRuntime",
+					"type": "IntegrationRuntimeReference"
 				}
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/AutoResolveIntegrationRuntime')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/AzureDatabricks1')]",
@@ -333,7 +307,7 @@
 				"annotations": [],
 				"type": "AzureDatabricks",
 				"typeProperties": {
-					"domain": "https://adb-7482887567627413.13.azuredatabricks.net",
+					"domain": "https://adb-5208101121128501.1.azuredatabricks.net",
 					"accessToken": {
 						"type": "SecureString",
 						"value": "[parameters('AzureDatabricks1_accessToken')]"
@@ -417,32 +391,102 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/AzureSqlTable1')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
+			"name": "[concat(parameters('factoryName'), '/AutoResolveIntegrationRuntime')]",
+			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureSqlDatabase1",
-					"type": "LinkedServiceReference"
-				},
-				"parameters": {
-					"paramDestination": {
-						"type": "string"
-					}
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [],
+				"type": "Managed",
 				"typeProperties": {
-					"schema": "dbo",
-					"table": {
-						"value": "@dataset().paramDestination",
-						"type": "Expression"
+					"computeProperties": {
+						"location": "AutoResolve",
+						"dataFlowProperties": {
+							"computeType": "General",
+							"coreCount": 8,
+							"timeToLive": 0
+						}
 					}
+				},
+				"managedVirtualNetwork": {
+					"type": "ManagedVirtualNetworkReference",
+					"referenceName": "default"
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase1')]"
+				"[concat(variables('factoryId'), '/managedVirtualNetworks/default')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/CopyFromDeltaToSQL')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"linkedService": {
+								"referenceName": "AzureDataLakeStorage1",
+								"type": "LinkedServiceReference"
+							},
+							"name": "DeltaTable"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "AzureSqlTable1",
+								"type": "DatasetReference"
+							},
+							"name": "SQLDatabases"
+						}
+					],
+					"transformations": [],
+					"scriptLines": [
+						"parameters{",
+						"     DeltaTableFolder as string",
+						"}",
+						"source(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false,",
+						"     format: 'delta',",
+						"     fileSystem: 'chicago-crash',",
+						"     folderPath: ($DeltaTableFolder)) ~> DeltaTable",
+						"DeltaTable sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     deletable:false,",
+						"     insertable:true,",
+						"     updateable:false,",
+						"     upsertable:false,",
+						"     recreate:true,",
+						"     format: 'table',",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     errorHandlingOption: 'stopOnFirstError') ~> SQLDatabases"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]",
+				"[concat(variables('factoryId'), '/datasets/AzureSqlTable1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/default')]",
+			"type": "Microsoft.DataFactory/factories/managedVirtualNetworks",
+			"apiVersion": "2018-06-01",
+			"properties": {},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/default/AzureDataLakeStorage410')]",
+			"type": "Microsoft.DataFactory/factories/managedVirtualNetworks/managedPrivateEndpoints",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"privateLinkResourceId": "[parameters('AzureDataLakeStorage410_properties_privateLinkResourceId')]",
+				"groupId": "[parameters('AzureDataLakeStorage410_properties_groupId')]"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/managedVirtualNetworks/default')]"
 			]
 		}
 	]

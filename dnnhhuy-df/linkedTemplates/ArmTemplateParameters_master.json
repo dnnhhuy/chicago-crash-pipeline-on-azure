@@ -15,10 +15,16 @@
 			"value": ""
 		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
-			"value": "https://dnnhhuystorage.dfs.core.windows.net/"
+			"value": "https://dnnhhuydatalake.dfs.core.windows.net/"
 		},
 		"AzureDatabricks1_properties_typeProperties_existingClusterId": {
-			"value": "0103-045816-4vym9vrx"
+			"value": "0107-200529-ozqu7cim"
+		},
+		"AzureDataLakeStorage410_properties_privateLinkResourceId": {
+			"value": "/subscriptions/25d2c895-0389-471f-b45f-cb7495bb8bf1/resourceGroups/chicago-crash-project/providers/Microsoft.Storage/storageAccounts/dnnhhuydatalake"
+		},
+		"AzureDataLakeStorage410_properties_groupId": {
+			"value": "dfs"
 		},
 		"containerUri": {
 			"value": ""
